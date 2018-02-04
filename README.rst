@@ -12,12 +12,10 @@ Features
 The ScratchPlot toolbox has been developed to plot and to analyze (nano)scratch dataset.
 
 With this Matlab toolbox, it is possible:
-    * to map (in 2D or 3D), to interpolate and to smooth indentation grid;
-    * to plot elastic modulus vs hardness values;
-    * to plot and to fit probability density functions;
-    * to plot and to fit cumulative density functions;
-    * to extract statistical values (mean, min, max with standard deviations) of mechanical properties and fractions for each phase;
-    * to correct mechanical map from image correlation with microstructural map.
+    * to plot 2D scratch profiles as a function of horizontal displacement;
+	* to plot 2D scratch profiles as a function of applied normal load;
+    * to plot pre- and post-profiles (or initial and residual topographies);
+    * to get statistical values (min, mean and max).
 
 Matlab version
 ------------------
@@ -49,4 +47,4 @@ Screenshots
    :scale: 50 %
    :align: center
    
-   *Multiple scratches performed on a 1300nm thick sol gel coating on a glass substrate.*
+   *Scratch performed on a 1300nm thick sol gel coating on a glass substrate.*

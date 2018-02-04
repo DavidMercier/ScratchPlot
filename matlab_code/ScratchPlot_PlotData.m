@@ -43,7 +43,7 @@ elseif get(h.pm_set_plot, 'Value') == 2
     xData1 = data.loadMean_1;
     xData2 = data.loadMean_2;
     xData3 = data.loadMean_3;
-    xLeg = strcat('Applied normal load(', gui.config.loadUnit, ')');
+    xLeg = strcat('Applied normal load (', gui.config.loadUnit, ')');
 end
 
 if ~get(h.cb_plot_errorbar, 'Value')
