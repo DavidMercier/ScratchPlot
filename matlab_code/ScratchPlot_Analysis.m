@@ -9,7 +9,7 @@ numTestMax = length(data.expValues);
 
 for ii = 1:numTestMax
     dispH = data.expValues(ii).dispHori;
-    ind_MinDisp = find(dispH>=config.maxScratchLength);
+    ind_MinDisp = find(dispH>=0.99*config.maxScratchLength);
     
     dispV = data.expValues(ii).dispVert;
     ind_MinDisp2 = find(isnan(dispV));
@@ -110,15 +110,15 @@ for ii = 1:1:numTestMax
 end
 for ii = 1:1:size(DispVert_1, 1)
     dataAnalyzed.dispVertError_1(ii) = ...
-        (max(DispVert_1(ii,:)) - min(DispVert_1(ii,:)))/2;
+        (nanmax(DispVert_1(ii,:)) - nanmin(DispVert_1(ii,:)))/2;
 end
 for ii = 1:1:size(DispVert_2, 1)
     dataAnalyzed.dispVertError_2(ii) = ...
-        (max(DispVert_2(ii,:)) - min(DispVert_2(ii,:)))/2;
+        (nanmax(DispVert_2(ii,:)) - nanmin(DispVert_2(ii,:)))/2;
 end
 for ii = 1:1:size(DispVert_3, 1)
     dataAnalyzed.dispVertError_3(ii) = ...
-        (max(DispVert_3(ii,:)) - min(DispVert_3(ii,:)))/2;
+        (nanmax(DispVert_3(ii,:)) - nanmin(DispVert_3(ii,:)))/2;
 end
 
 %% Set vertical displacement and error bars in microns
