@@ -113,26 +113,26 @@ else
 end
 
 if val_1 && ~val_2 && ~val_3
-    legendStr = 'Pre-Scratch';
+    legendStr = 'Pre-Profile';
 elseif ~val_1 && val_2 && ~val_3
     legendStr = 'Scratch';
 elseif ~val_1 && ~val_2 && val_3
-    legendStr = 'Post-Scratch';
+    legendStr = 'Post-Profile';
 elseif val_1 && val_2 && ~val_3
-    legendStr = {'Pre-Scratch', 'Scratch'};
+    legendStr = {'Pre-Profile', 'Scratch'};
 elseif ~val_1 && val_2 && val_3
-    legendStr = {'Scratch', 'Post-Scratch'};
+    legendStr = {'Scratch', 'Post-Profile'};
 elseif val_1 && ~val_2 && val_3
-    legendStr = {'Pre-Scratch', 'Post-Scratch'};
+    legendStr = {'Pre-Profile', 'Post-Profile'};
 elseif val_1 && val_2 && val_3
-    legendStr = {'Pre-Scratch', 'Scratch', 'Post-Scratch'};
+    legendStr = {'Pre-Profile', 'Scratch', 'Post-Profile'};
 end
 
 xlabel(xLeg); %, 'Interpreter', 'Latex'
 ylabel(strcat('Scratch depth (', gui.config.lengthUnit, ')')); %, 'Interpreter', 'Latex'
 if val_1 || val_2 || val_3
     h_legend1 = legend(legendStr);
-    set(h_legend1, 'Interpreter', 'Latex');
+    %set(h_legend1, 'Interpreter', 'Latex');
 end
 
 %% Axis

@@ -74,7 +74,7 @@ if config.flag.flag_data
         config.ScratchLengthOverRange*config.ScratchLength;
     
     % Scratch load
-    config.scanLoad = paramAll(1,13)*1000; % In mN (initially in microN in the .xls file
+    config.scanLoad = paramAll(1,13)/1000; % In mN (initially in microN in the .xls file
     display(strcat('Profiling scratch load is:', num2str(config.scanLoad), ...
         'mN'));
     config.maxLoad = paramAll(1,5); % In mN
