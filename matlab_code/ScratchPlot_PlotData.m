@@ -38,18 +38,67 @@ if get(h.pm_set_plot, 'Value') == 1
     xData1 = data.dispHoriMean_1;
     xData2 = data.dispHoriMean_2;
     xData3 = data.dispHoriMean_3;
+    if ~gui.config.offsetFlag
+        yData1 = data.dispVertMean_1;
+        yData2 = data.dispVertMean_2;
+        yData3 = data.dispVertMean_3;
+        yDataError1 = data.dispVertError_1;
+        yDataError2 = data.dispVertError_2;
+        yDataError3 = data.dispVertError_3;
+    else
+        yData1 = data.dispVertCorrMean_1;
+        yData2 = data.dispVertCorrMean_2;
+        yData3 = data.dispVertCorrMean_3;
+        yDataError1 = data.dispVertCorrError_1;
+        yDataError2 = data.dispVertCorrError_2;
+        yDataError3 = data.dispVertCorrError_3;
+    end
     xLeg = strcat('Horizontal displacement (', gui.config.lengthUnit, ')');
+    yLeg = strcat('Scratch depth (', gui.config.lengthUnit, ')');
 elseif get(h.pm_set_plot, 'Value') == 2
     xData1 = data.loadMean_1;
     xData2 = data.loadMean_2;
     xData3 = data.loadMean_3;
+    if ~config.offsetFlag
+        yData1 = data.dispVertMean_1;
+        yData2 = data.dispVertMean_2;
+        yData3 = data.dispVertMean_3;
+        yDataError1 = data.dispVertError_1;
+        yDataError2 = data.dispVertError_2;
+        yDataError3 = data.dispVertError_3;
+    else
+        yData1 = data.dispVertCorrMean_1;
+        yData2 = data.dispVertCorrMean_2;
+        yData3 = data.dispVertCorrMean_3;
+        yDataError1 = data.dispVertCorrError_1;
+        yDataError2 = data.dispVertCorrError_2;
+        yDataError3 = data.dispVertCorrError_3;
+    end
     xLeg = strcat('Applied normal load (', gui.config.loadUnit, ')');
+    yLeg = strcat('Scratch depth (', gui.config.lengthUnit, ')');
+elseif get(h.pm_set_plot, 'Value') == 3
+    if ~config.offsetFlag
+        xData1 = -1*data.dispVertMean_1;
+        xData2 = -1*data.dispVertMean_2;
+        xData3 = -1*data.dispVertMean_3;
+    else
+        xData1 = -1*data.dispVertCorrMean_1;
+        xData2 = -1*data.dispVertCorrMean_2;
+        xData3 = -1*data.dispVertCorrMean_3;
+    end
+    yData1 = data.loadMean_1;
+    yData2 = data.loadMean_2;
+    yData3 = data.loadMean_3;
+    yDataError1 = data.loadError_1;
+    yDataError2 = data.loadError_2;
+    yDataError3 = data.loadError_3;
+    xLeg = strcat('Scratch depth (', gui.config.lengthUnit, ')');
+    yLeg = strcat('Applied normal load (', gui.config.loadUnit, ')');
 end
 
 if ~get(h.cb_plot_errorbar, 'Value')
     if val_1
-        plot(xData1, ...
-            data.dispVertMean_1, ...
+        plot(xData1, yData1, ...
             'o', ...
             'Color', colorPlot(1,:),...
             'LineWidth', lineWidthval, ...
@@ -58,8 +107,7 @@ if ~get(h.cb_plot_errorbar, 'Value')
     end
     
     if val_2
-        plot(xData2, ...
-            data.dispVertMean_2, ...
+        plot(xData2, yData2, ...
             '+', ...
             'Color', colorPlot(2,:),...
             'LineWidth', lineWidthval, ...
@@ -68,8 +116,7 @@ if ~get(h.cb_plot_errorbar, 'Value')
     end
     
     if val_3
-        plot(xData3, ...
-            data.dispVertMean_3, ...
+        plot(xData3, yData3, ...
             '*', ...
             'Color', colorPlot(3,:),...
             'LineWidth', lineWidthval, ...
@@ -79,9 +126,7 @@ if ~get(h.cb_plot_errorbar, 'Value')
     
 else
     if val_1
-        errorbar(xData1, ...
-            data.dispVertMean_1, ...
-            data.dispVertError_1, ...
+        errorbar(xData1, yData1, yDataError1, ...
             'o', ...
             'Color', colorPlot(1,:),...
             'LineWidth', lineWidthval, ...
@@ -90,9 +135,7 @@ else
     end
     
     if val_2
-        errorbar(xData2, ...
-            data.dispVertMean_2, ...
-            data.dispVertError_2, ...
+        errorbar(xData2, yData2, yDataError2, ...
             '+', ...
             'Color', colorPlot(2,:),...
             'LineWidth', lineWidthval, ...
@@ -101,9 +144,7 @@ else
     end
     
     if val_3
-        errorbar(xData3, ...
-            data.dispVertMean_3, ...
-            data.dispVertError_3, ...
+        errorbar(xData3, yData3, yDataError3, ...
             '*', ...
             'Color', colorPlot(3,:),...
             'LineWidth', lineWidthval, ...
@@ -129,7 +170,7 @@ elseif val_1 && val_2 && val_3
 end
 
 xlabel(xLeg); %, 'Interpreter', 'Latex'
-ylabel(strcat('Scratch depth (', gui.config.lengthUnit, ')')); %, 'Interpreter', 'Latex'
+ylabel(yLeg); %, 'Interpreter', 'Latex'
 if val_1 || val_2 || val_3
     h_legend1 = legend(legendStr);
     %set(h_legend1, 'Interpreter', 'Latex');

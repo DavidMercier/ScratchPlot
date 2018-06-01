@@ -40,6 +40,16 @@ else
         'Visible', 'off');
 end
 
+config.smoothFlag = get(h.cb_averageSmooth, 'value');
+if config.smoothFlag 
+    config.smoothVal = round(get(h.slide_averageSmooth, 'value'));
+    set(h.slide_averageSmooth, 'Visible', 'on');
+else
+    set(h.slide_averageSmooth, 'Visible', 'off');
+end
+
+config.offsetFlag = get(h.cb_offsetCorr, 'value');
+
 gui.config = config;
 guidata(gcf, gui);
 end

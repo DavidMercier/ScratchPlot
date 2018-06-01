@@ -130,6 +130,7 @@ if config.flag.flag_data
                     end
                 end
                 data.expValues(ii).dispVert = dataAll(:,1);
+                data.expValues(ii).dispVertCorr = dataAll(:,2);
                 data.expValues(ii).dispHori = dataAll(:,5);
                 data.expValues(ii).load = dataAll(:,6);
             end
