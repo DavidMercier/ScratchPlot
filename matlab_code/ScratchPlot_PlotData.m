@@ -59,7 +59,7 @@ elseif get(h.pm_set_plot, 'Value') == 2
     xData1 = data.loadMean_1;
     xData2 = data.loadMean_2;
     xData3 = data.loadMean_3;
-    if ~config.offsetFlag
+    if ~gui.config.offsetFlag
         yData1 = data.dispVertMean_1;
         yData2 = data.dispVertMean_2;
         yData3 = data.dispVertMean_3;
@@ -77,7 +77,7 @@ elseif get(h.pm_set_plot, 'Value') == 2
     xLeg = strcat('Applied normal load (', gui.config.loadUnit, ')');
     yLeg = strcat('Scratch depth (', gui.config.lengthUnit, ')');
 elseif get(h.pm_set_plot, 'Value') == 3
-    if ~config.offsetFlag
+    if ~gui.config.offsetFlag
         xData1 = -1*data.dispVertMean_1;
         xData2 = -1*data.dispVertMean_2;
         xData3 = -1*data.dispVertMean_3;
@@ -94,57 +94,80 @@ elseif get(h.pm_set_plot, 'Value') == 3
     yDataError3 = data.loadError_3;
     xLeg = strcat('Scratch depth (', gui.config.lengthUnit, ')');
     yLeg = strcat('Applied normal load (', gui.config.loadUnit, ')');
+elseif get(h.pm_set_plot, 'Value') == 4
+    xDataCross = data.dispHoriCrossMean;
+    yDataCross = data.dispVertCrossMean;
+    yDataErrorCross = data.dispVertCrossError;
+    xLeg = strcat('Cross profile (', gui.config.lengthUnit, ')');
+    yLeg = strcat('Cross profile depth (', gui.config.lengthUnit, ')');
 end
 
 if ~get(h.cb_plot_errorbar, 'Value')
-    if val_1
-        plot(xData1, yData1, ...
-            'o', ...
-            'Color', colorPlot(1,:),...
-            'LineWidth', lineWidthval, ...
-            'markers', markerSize);
-        hold on;
-    end
-    
-    if val_2
-        plot(xData2, yData2, ...
-            '+', ...
-            'Color', colorPlot(2,:),...
-            'LineWidth', lineWidthval, ...
-            'markers', markerSize);
-        hold on;
-    end
-    
-    if val_3
-        plot(xData3, yData3, ...
+    if ~(get(h.pm_set_plot, 'Value') == 4)
+        if val_1
+            plot(xData1, yData1, ...
+                'o', ...
+                'Color', colorPlot(1,:),...
+                'LineWidth', lineWidthval, ...
+                'markers', markerSize);
+            hold on;
+        end
+        
+        if val_2
+            plot(xData2, yData2, ...
+                '+', ...
+                'Color', colorPlot(2,:),...
+                'LineWidth', lineWidthval, ...
+                'markers', markerSize);
+            hold on;
+        end
+        
+        if val_3
+            plot(xData3, yData3, ...
+                '*', ...
+                'Color', colorPlot(3,:),...
+                'LineWidth', lineWidthval, ...
+                'markers', markerSize);
+            hold on;
+        end
+    else
+        plot(xDataCross, yDataCross, ...
             '*', ...
             'Color', colorPlot(3,:),...
             'LineWidth', lineWidthval, ...
             'markers', markerSize);
         hold on;
     end
-    
 else
-    if val_1
-        errorbar(xData1, yData1, yDataError1, ...
-            'o', ...
-            'Color', colorPlot(1,:),...
-            'LineWidth', lineWidthval, ...
-            'markers', markerSize);
-        hold on;
-    end
-    
-    if val_2
-        errorbar(xData2, yData2, yDataError2, ...
-            '+', ...
-            'Color', colorPlot(2,:),...
-            'LineWidth', lineWidthval, ...
-            'markers', markerSize);
-        hold on;
-    end
-    
-    if val_3
-        errorbar(xData3, yData3, yDataError3, ...
+    if ~(get(h.pm_set_plot, 'Value') == 4)
+        if val_1
+            errorbar(xData1, yData1, yDataError1, ...
+                'o', ...
+                'Color', colorPlot(1,:),...
+                'LineWidth', lineWidthval, ...
+                'markers', markerSize);
+            hold on;
+        end
+        
+        if val_2
+            errorbar(xData2, yData2, yDataError2, ...
+                '+', ...
+                'Color', colorPlot(2,:),...
+                'LineWidth', lineWidthval, ...
+                'markers', markerSize);
+            hold on;
+        end
+        
+        if val_3
+            errorbar(xData3, yData3, yDataError3, ...
+                '*', ...
+                'Color', colorPlot(3,:),...
+                'LineWidth', lineWidthval, ...
+                'markers', markerSize);
+            hold on;
+        end
+    else
+        errorbar(xDataCross, yDataCross, yDataErrorCross,...
             '*', ...
             'Color', colorPlot(3,:),...
             'LineWidth', lineWidthval, ...
@@ -153,20 +176,24 @@ else
     end
 end
 
-if val_1 && ~val_2 && ~val_3
-    legendStr = 'Pre-Profile';
-elseif ~val_1 && val_2 && ~val_3
-    legendStr = 'Scratch';
-elseif ~val_1 && ~val_2 && val_3
-    legendStr = 'Post-Profile';
-elseif val_1 && val_2 && ~val_3
-    legendStr = {'Pre-Profile', 'Scratch'};
-elseif ~val_1 && val_2 && val_3
-    legendStr = {'Scratch', 'Post-Profile'};
-elseif val_1 && ~val_2 && val_3
-    legendStr = {'Pre-Profile', 'Post-Profile'};
-elseif val_1 && val_2 && val_3
-    legendStr = {'Pre-Profile', 'Scratch', 'Post-Profile'};
+if (get(h.pm_set_plot, 'Value') == 4)
+    legendStr = 'Cross-Profile';
+else
+    if val_1 && ~val_2 && ~val_3
+        legendStr = 'Pre-Profile';
+    elseif ~val_1 && val_2 && ~val_3
+        legendStr = 'Scratch';
+    elseif ~val_1 && ~val_2 && val_3
+        legendStr = 'Post-Profile';
+    elseif val_1 && val_2 && ~val_3
+        legendStr = {'Pre-Profile', 'Scratch'};
+    elseif ~val_1 && val_2 && val_3
+        legendStr = {'Scratch', 'Post-Profile'};
+    elseif val_1 && ~val_2 && val_3
+        legendStr = {'Pre-Profile', 'Post-Profile'};
+    elseif val_1 && val_2 && val_3
+        legendStr = {'Pre-Profile', 'Scratch', 'Post-Profile'};
+    end
 end
 
 xlabel(xLeg); %, 'Interpreter', 'Latex'

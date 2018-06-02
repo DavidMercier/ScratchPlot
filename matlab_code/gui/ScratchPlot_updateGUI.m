@@ -6,6 +6,7 @@ gui = guidata(gcf);
 h = gui.handles;
 config = gui.config;
 
+%% Unit settings
 config.numExcelFiles = str2double(get(h.value_numExcelFile_GUI, 'String'));
 
 config.lengthUnit = ...
@@ -20,6 +21,39 @@ set(h.unit_Max_yLim_GUI, 'String', config.lengthUnit);
 set(h.unit_xVal_GUI, 'String', config.lengthUnit);
 set(h.unit_yVal_GUI, 'String', config.lengthUnit);
 
+%% Cross profile settings
+if get(h.pm_set_plot, 'Value') == 4
+   set(h.cb_plot_preScratch, 'Visible', 'off');
+   set(h.cb_plot_scratch, 'Visible', 'off');
+   set(h.cb_plot_postScratch, 'Visible', 'off');
+   set(h.cb_offsetCorr, 'Visible', 'off');
+else
+   set(h.cb_plot_preScratch, 'Visible', 'on');
+   set(h.cb_plot_scratch, 'Visible', 'on');
+   set(h.cb_plot_postScratch, 'Visible', 'on');
+   set(h.cb_offsetCorr, 'Visible', 'on');
+end
+
+%% Smooth settings
+config.smoothFlag = get(h.cb_averageSmooth, 'value');
+if config.smoothFlag 
+    config.smoothVal = round(get(h.slide_averageSmooth, 'value'));
+    set(h.slide_averageSmooth, 'Visible', 'on');
+else
+    set(h.slide_averageSmooth, 'Visible', 'off');
+end
+
+config.splineFlag = get(h.cb_splineSmooth, 'value');
+if config.splineFlag 
+    config.splineVal = round(get(h.slide_splineSmooth, 'value'));
+    set(h.slide_splineSmooth, 'Visible', 'on');
+else
+    set(h.slide_splineSmooth, 'Visible', 'off');
+end
+
+config.offsetFlag = get(h.cb_offsetCorr, 'value');
+
+%% Axis ettings
 if ~get(h.cb_plot_xLim_auto, 'Value')
     set([h.title_Min_xLim_GUI, h.value_Min_xLim_GUI, h.unit_Min_xLim_GUI, ...
         h.title_Max_xLim_GUI, h.value_Max_xLim_GUI, h.unit_Max_xLim_GUI], ...
@@ -39,24 +73,6 @@ else
         h.title_Max_yLim_GUI, h.value_Max_yLim_GUI, h.unit_Max_yLim_GUI], ...
         'Visible', 'off');
 end
-
-config.smoothFlag = get(h.cb_averageSmooth, 'value');
-if config.smoothFlag 
-    config.smoothVal = round(get(h.slide_averageSmooth, 'value'));
-    set(h.slide_averageSmooth, 'Visible', 'on');
-else
-    set(h.slide_averageSmooth, 'Visible', 'off');
-end
-
-config.splineFlag = get(h.cb_splineSmooth, 'value');
-if config.splineFlag 
-    config.splineVal = round(get(h.slide_splineSmooth, 'value'));
-    set(h.slide_splineSmooth, 'Visible', 'on');
-else
-    set(h.slide_splineSmooth, 'Visible', 'off');
-end
-
-config.offsetFlag = get(h.cb_offsetCorr, 'value');
 
 gui.config = config;
 guidata(gcf, gui);

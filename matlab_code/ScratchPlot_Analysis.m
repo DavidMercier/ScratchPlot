@@ -34,6 +34,18 @@ deltaMAXTAB(1) = nanmin(ind_scratch(2,:) - 1);
 deltaMAXTAB(2) = nanmin(ind_scratch(3,:) - ind_scratch(2,:));
 deltaMAXTAB(3) = nanmin(nanmax(ind_scratch(4,:)) - ind_scratch(3,:));
 
+%% Find cross profile indices
+for ii = 1:numTestMax
+    dispCross = data.expValues(ii).dispHoriCross;
+    ind_DispCross1 = find(dispCross<=0.49*-config.crossProfileLength & ...
+        dispCross<=1e300);
+    ind_DispCross2 = find(dispCross>=0.49*config.crossProfileLength & ...
+        dispCross<=1e300);
+    ind_cross(1,ii) = nanmin(ind_DispCross1);
+    ind_cross(2,ii) = nanmax(ind_DispCross2);
+end
+deltaMAXTABCross(1) = nanmin(ind_cross(2,:) - ind_cross(1,:));
+
 %% Preallocation of variables
 dataAnalyzed = struct();
 dataAnalyzed.dispVertSum_1 = zeros(deltaMAXTAB(1)+1, 1);
@@ -48,23 +60,30 @@ dataAnalyzed.dispVertSum_3 = zeros(deltaMAXTAB(3)+1, 1);
 dataAnalyzed.dispVertCorrSum_3 = zeros(deltaMAXTAB(3)+1, 1);
 dataAnalyzed.dispHoriSum_3 = zeros(deltaMAXTAB(3)+1, 1);
 dataAnalyzed.loadSum_3 = zeros(deltaMAXTAB(3)+1, 1);
+dataAnalyzed.dispHoriCross = zeros(deltaMAXTABCross(1)+1, 1);
+dataAnalyzed.dispVertCross = zeros(deltaMAXTABCross(1)+1, 1);
+dataAnalyzed.dispHoriCrossSum = zeros(deltaMAXTABCross(1)+1, 1);
+dataAnalyzed.dispVertCrossSum = zeros(deltaMAXTABCross(1)+1, 1);
 
 %% All tests
 for ii = 1:1:numTestMax
-    dataAnalyzed.allVal(ii).dispVert_1 = data.expValues(ii).dispVert(ind_scratch(1,:):(ind_scratch(1,:)+deltaMAXTAB(1)),1);
-    dataAnalyzed.allVal(ii).dispVertCorr_1 = data.expValues(ii).dispVertCorr(ind_scratch(1,:):(ind_scratch(1,:)+deltaMAXTAB(1)),1);
-    dataAnalyzed.allVal(ii).dispHori_1 = data.expValues(ii).dispHori(ind_scratch(1,:):(ind_scratch(1,:)+deltaMAXTAB(1)),1);
-    dataAnalyzed.allVal(ii).load_1 = data.expValues(ii).load(ind_scratch(1,:):(ind_scratch(1,:)+deltaMAXTAB(1)),1);
+    dataAnalyzed.allVal(ii).dispVert_1 = data.expValues(ii).dispVert(ind_scratch(1,ii):(ind_scratch(1,ii)+deltaMAXTAB(1)),1);
+    dataAnalyzed.allVal(ii).dispVertCorr_1 = data.expValues(ii).dispVertCorr(ind_scratch(1,ii):(ind_scratch(1,ii)+deltaMAXTAB(1)),1);
+    dataAnalyzed.allVal(ii).dispHori_1 = data.expValues(ii).dispHori(ind_scratch(1,ii):(ind_scratch(1,ii)+deltaMAXTAB(1)),1);
+    dataAnalyzed.allVal(ii).load_1 = data.expValues(ii).load(ind_scratch(1,ii):(ind_scratch(1,ii)+deltaMAXTAB(1)),1);
     
-    dataAnalyzed.allVal(ii).dispVert_2 = data.expValues(ii).dispVert(ind_scratch(2,:):(ind_scratch(2,:)+deltaMAXTAB(2)),1);
-    dataAnalyzed.allVal(ii).dispVertCorr_2 = data.expValues(ii).dispVertCorr(ind_scratch(2,:):(ind_scratch(2,:)+deltaMAXTAB(2)),1);
-    dataAnalyzed.allVal(ii).dispHori_2 = data.expValues(ii).dispHori(ind_scratch(2,:):(ind_scratch(2,:)+deltaMAXTAB(2)),1);
-    dataAnalyzed.allVal(ii).load_2 = data.expValues(ii).load(ind_scratch(2,:):(ind_scratch(2,:)+deltaMAXTAB(2)),1);
+    dataAnalyzed.allVal(ii).dispVert_2 = data.expValues(ii).dispVert(ind_scratch(2,ii):(ind_scratch(2,ii)+deltaMAXTAB(2)),1);
+    dataAnalyzed.allVal(ii).dispVertCorr_2 = data.expValues(ii).dispVertCorr(ind_scratch(2,ii):(ind_scratch(2,ii)+deltaMAXTAB(2)),1);
+    dataAnalyzed.allVal(ii).dispHori_2 = data.expValues(ii).dispHori(ind_scratch(2,ii):(ind_scratch(2,ii)+deltaMAXTAB(2)),1);
+    dataAnalyzed.allVal(ii).load_2 = data.expValues(ii).load(ind_scratch(2,:):(ind_scratch(2,ii)+deltaMAXTAB(2)),1);
     
-    dataAnalyzed.allVal(ii).dispVert_3 = data.expValues(ii).dispVert(ind_scratch(3,:):(ind_scratch(3,:)+deltaMAXTAB(3)),1);
-    dataAnalyzed.allVal(ii).dispVertCorr_3 = data.expValues(ii).dispVertCorr(ind_scratch(3,:):(ind_scratch(3,:)+deltaMAXTAB(3)),1);
-    dataAnalyzed.allVal(ii).dispHori_3 = data.expValues(ii).dispHori(ind_scratch(3,:):(ind_scratch(3,:)+deltaMAXTAB(3)),1);
-    dataAnalyzed.allVal(ii).load_3 = data.expValues(ii).load(ind_scratch(3,:):(ind_scratch(3,:)+deltaMAXTAB(3)),1);
+    dataAnalyzed.allVal(ii).dispVert_3 = data.expValues(ii).dispVert(ind_scratch(3,ii):(ind_scratch(3,ii)+deltaMAXTAB(3)),1);
+    dataAnalyzed.allVal(ii).dispVertCorr_3 = data.expValues(ii).dispVertCorr(ind_scratch(3,ii):(ind_scratch(3,ii)+deltaMAXTAB(3)),1);
+    dataAnalyzed.allVal(ii).dispHori_3 = data.expValues(ii).dispHori(ind_scratch(3,ii):(ind_scratch(3,ii)+deltaMAXTAB(3)),1);
+    dataAnalyzed.allVal(ii).load_3 = data.expValues(ii).load(ind_scratch(3,ii):(ind_scratch(3,ii)+deltaMAXTAB(3)),1);
+
+    dataAnalyzed.allVal(ii).dispHoriCross = data.expValues(ii).dispHoriCross(ind_cross(1,ii):(ind_cross(1,ii)+deltaMAXTABCross(1)),1);
+    dataAnalyzed.allVal(ii).dispVertCross = data.expValues(ii).dispVertCross(ind_cross(1,ii):(ind_cross(1,ii)+deltaMAXTABCross(1)),1);
 end
 
 %% Sum
@@ -98,6 +117,12 @@ for ii = 1:1:numTestMax
         data.expValues(ii).dispHori(ind_scratch(3,ii):(ind_scratch(3,ii)+deltaMAXTAB(3)),1);
     dataAnalyzed.loadSum_3 = dataAnalyzed.loadSum_3 + ...
         data.expValues(ii).load(ind_scratch(3,ii):(ind_scratch(3,ii)+deltaMAXTAB(3)),1);
+
+    % Cross profile
+    dataAnalyzed.dispHoriCrossSum = dataAnalyzed.dispHoriCrossSum + ...
+        data.expValues(ii).dispHoriCross(ind_cross(1,ii):(ind_cross(1,ii)+deltaMAXTABCross(1)),1);
+    dataAnalyzed.dispVertCrossSum = dataAnalyzed.dispVertCrossSum + ...
+        data.expValues(ii).dispVertCross(ind_cross(1,ii):(ind_cross(1,ii)+deltaMAXTABCross(1)),1);
 end
 
 %% Moving-average filter = smooth
@@ -117,6 +142,8 @@ if config.smoothFlag
     dataAnalyzed.dispVertCorrSum_3 = filter(b,a,dataAnalyzed.dispVertCorrSum_3);
     dataAnalyzed.dispHoriSum_3 = filter(b,a,dataAnalyzed.dispHoriSum_3);
     dataAnalyzed.loadSum_3 = filter(b,a,dataAnalyzed.loadSum_3);
+    dataAnalyzed.dispHoriCrossSum = filter(b,a,dataAnalyzed.dispHoriCrossSum);
+    dataAnalyzed.dispVertCrossSum = filter(b,a,dataAnalyzed.dispVertCrossSum);
 end
 
 %% Spline smooth
@@ -133,6 +160,8 @@ if config.splineFlag
     dataAnalyzed.dispVertCorrSum_3 = smoothn(dataAnalyzed.dispVertCorrSum_3, config.splineVal);
     dataAnalyzed.dispHoriSum_3 = smoothn(dataAnalyzed.dispHoriSum_3, config.splineVal);
     dataAnalyzed.loadSum_3 = smoothn(dataAnalyzed.loadSum_3, config.splineVal);
+    dataAnalyzed.dispHoriCrossSum = smoothn(dataAnalyzed.dispHoriCrossSum, config.splineVal);
+    dataAnalyzed.dispVertCrossSum = smoothn(dataAnalyzed.dispVertCrossSum, config.splineVal);
 end
 
 %% Mean
@@ -151,6 +180,9 @@ dataAnalyzed.dispVertCorrMean_3 = dataAnalyzed.dispVertCorrSum_3 / numTestMax;
 dataAnalyzed.dispHoriMean_3 = dataAnalyzed.dispHoriSum_3 / numTestMax;
 dataAnalyzed.loadMean_3 = dataAnalyzed.loadSum_3 / numTestMax;
 
+dataAnalyzed.dispHoriCrossMean = dataAnalyzed.dispHoriCrossSum / numTestMax;
+dataAnalyzed.dispVertCrossMean = dataAnalyzed.dispVertCrossSum / numTestMax;
+
 %% Error bars calculations
 for ii = 1:1:numTestMax
     DispVert_1(:,ii) = data.expValues(ii).dispVert(ind_scratch(1,ii):(ind_scratch(1,ii)+deltaMAXTAB(1)),1);
@@ -165,6 +197,8 @@ for ii = 1:1:numTestMax
     Load_1(:,ii) = data.expValues(ii).load(ind_scratch(1,ii):(ind_scratch(1,ii)+deltaMAXTAB(1)),1);
     Load_2(:,ii) = data.expValues(ii).load(ind_scratch(2,ii):(ind_scratch(2,ii)+deltaMAXTAB(2)),1);
     Load_3(:,ii) = data.expValues(ii).load(ind_scratch(3,ii):(ind_scratch(3,ii)+deltaMAXTAB(3)),1);
+    HoriCross(:,ii) = data.expValues(ii).dispHoriCross(ind_cross(1,ii):(ind_cross(1,ii)+deltaMAXTABCross(1)),1);
+    VertCross(:,ii) = data.expValues(ii).dispVertCross(ind_cross(1,ii):(ind_cross(1,ii)+deltaMAXTABCross(1)),1);
 end
 for ii = 1:1:size(DispVert_1, 1)
     dataAnalyzed.dispVertError_1(ii) = ...
@@ -195,6 +229,12 @@ for ii = 1:1:size(DispVert_3, 1)
         (nanmax(DispHori_3(ii,:)) - nanmin(DispHori_3(ii,:)))/2;
     dataAnalyzed.loadError_3(ii) = ...
         (nanmax(Load_3(ii,:)) - nanmin(Load_3(ii,:)))/2;
+end
+for ii = 1:1:size(VertCross, 1)
+    dataAnalyzed.dispHoriCrossError(ii) = ...
+        (nanmax(HoriCross(ii,:)) - nanmin(HoriCross(ii,:)))/2;
+    dataAnalyzed.dispVertCrossError(ii) = ...
+        (nanmax(VertCross(ii,:)) - nanmin(VertCross(ii,:)))/2;
 end
 
 %% Set vertical displacement and error bars in microns

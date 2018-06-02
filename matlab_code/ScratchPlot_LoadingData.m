@@ -76,10 +76,18 @@ if config.flag.flag_data
     % Scratch load
     config.scanLoad = paramAll(1,13)/1000; % In mN (initially in microN in the .xls file
     display(strcat('Profiling scratch load is:', num2str(config.scanLoad), ...
-        'mN'));
+        gui.config.loadUnit));
     config.maxLoad = paramAll(1,5); % In mN
     display(strcat('Maximum scratch load is:', num2str(config.maxLoad), ...
-        'mN'));
+        gui.config.loadUnit));
+    
+    % Cross profile parameters
+    config.crossProfileLoc = paramAll(1,6); % In micron
+    display(strcat('Cross Profile Location is:', num2str(config.crossProfileLoc), ...
+        gui.config.lengthUnit));
+    config.crossProfileLength = paramAll(1,8); % In micron
+    display(strcat('Cross Profile Length is:', num2str(config.crossProfileLength), ...
+        gui.config.lengthUnit));
     
     %% Preallocation of variables
     data.expValues.dispVert(:,:) = zeros(config.numRowMax, 1);
@@ -133,6 +141,8 @@ if config.flag.flag_data
                 data.expValues(ii).dispVertCorr = dataAll(:,2);
                 data.expValues(ii).dispHori = dataAll(:,5);
                 data.expValues(ii).load = dataAll(:,6);
+                data.expValues(ii).dispHoriCross = dataAll(:,9);
+                data.expValues(ii).dispVertCross = dataAll(:,11);
             end
         end
     end
