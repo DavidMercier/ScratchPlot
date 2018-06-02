@@ -109,14 +109,30 @@ if config.smoothFlag
     dataAnalyzed.dispVertCorrSum_1 = filter(b,a,dataAnalyzed.dispVertCorrSum_1);
     dataAnalyzed.dispHoriSum_1 = filter(b,a,dataAnalyzed.dispHoriSum_1);
     dataAnalyzed.loadSum_1 = filter(b,a,dataAnalyzed.loadSum_1);
-    dataAnalyzed.dispVertSum_2 = filter(b,a,dataAnalyzed.dispVertSum_2);
+	dataAnalyzed.dispVertSum_2 = filter(b,a,dataAnalyzed.dispVertSum_2);
     dataAnalyzed.dispVertCorrSum_2 = filter(b,a,dataAnalyzed.dispVertCorrSum_2);
-    dataAnalyzed.dispHoriSum_2 = filter(b,a,dataAnalyzed.dispHoriSum_2);
+	dataAnalyzed.dispHoriSum_2 = filter(b,a,dataAnalyzed.dispHoriSum_2);
     dataAnalyzed.loadSum_2 = filter(b,a,dataAnalyzed.loadSum_2);
     dataAnalyzed.dispVertSum_3 = filter(b,a,dataAnalyzed.dispVertSum_3);
     dataAnalyzed.dispVertCorrSum_3 = filter(b,a,dataAnalyzed.dispVertCorrSum_3);
     dataAnalyzed.dispHoriSum_3 = filter(b,a,dataAnalyzed.dispHoriSum_3);
     dataAnalyzed.loadSum_3 = filter(b,a,dataAnalyzed.loadSum_3);
+end
+
+%% Spline smooth
+if config.splineFlag
+    dataAnalyzed.dispVertSum_1 = smoothn(dataAnalyzed.dispVertSum_1, config.splineVal);
+    dataAnalyzed.dispVertCorrSum_1 = smoothn(dataAnalyzed.dispVertCorrSum_1, config.splineVal);
+    dataAnalyzed.dispHoriSum_1 = smoothn(dataAnalyzed.dispHoriSum_1, config.splineVal);
+    dataAnalyzed.loadSum_1 = smoothn(dataAnalyzed.loadSum_1, config.splineVal);
+    dataAnalyzed.dispVertSum_2 = smoothn(dataAnalyzed.dispVertSum_2, config.splineVal);
+    dataAnalyzed.dispVertCorrSum_2 = smoothn(dataAnalyzed.dispVertCorrSum_2, config.splineVal);
+    dataAnalyzed.dispHoriSum_2 = smoothn(dataAnalyzed.dispHoriSum_2, config.splineVal);
+    dataAnalyzed.loadSum_2 = smoothn(dataAnalyzed.loadSum_2, config.splineVal);
+    dataAnalyzed.dispVertSum_3 = smoothn(dataAnalyzed.dispVertSum_3, config.splineVal);
+    dataAnalyzed.dispVertCorrSum_3 = smoothn(dataAnalyzed.dispVertCorrSum_3, config.splineVal);
+    dataAnalyzed.dispHoriSum_3 = smoothn(dataAnalyzed.dispHoriSum_3, config.splineVal);
+    dataAnalyzed.loadSum_3 = smoothn(dataAnalyzed.loadSum_3, config.splineVal);
 end
 
 %% Mean
