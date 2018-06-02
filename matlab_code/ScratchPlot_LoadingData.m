@@ -84,7 +84,7 @@ if config.flag.flag_data
     % Cross profile parameters
     config.crossProfileLoc = paramAll(1,6); % In micron
     display(strcat('Cross Profile Location is:', num2str(config.crossProfileLoc), ...
-        gui.config.lengthUnit));
+        gui.config.loadUnit));
     config.crossProfileLength = paramAll(1,8); % In micron
     display(strcat('Cross Profile Length is:', num2str(config.crossProfileLength), ...
         gui.config.lengthUnit));

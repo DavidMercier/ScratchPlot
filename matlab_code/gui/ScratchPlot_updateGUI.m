@@ -22,7 +22,7 @@ set(h.unit_xVal_GUI, 'String', config.lengthUnit);
 set(h.unit_yVal_GUI, 'String', config.lengthUnit);
 
 %% Cross profile settings
-if get(h.pm_set_plot, 'Value') == 4
+if get(h.pm_set_plot, 'Value') >= 4
    set(h.cb_plot_preScratch, 'Visible', 'off');
    set(h.cb_plot_scratch, 'Visible', 'off');
    set(h.cb_plot_postScratch, 'Visible', 'off');

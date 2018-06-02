@@ -185,6 +185,10 @@ dataAnalyzed.loadMean_3 = dataAnalyzed.loadSum_3 / numTestMax;
 dataAnalyzed.dispHoriCrossMean = dataAnalyzed.dispHoriCrossSum / numTestMax;
 dataAnalyzed.dispVertCrossMean = dataAnalyzed.dispVertCrossSum / numTestMax;
 
+%% Find location in micron for cross profile
+indCP = find(dataAnalyzed.loadMean_2 >= config.crossProfileLoc);
+dataAnalyzed.CP_loc = dataAnalyzed.dispHoriMean_2(min(indCP));
+
 %% Error bars calculations
 for ii = 1:1:numTestMax
     DispVert_1(:,ii) = data.expValues(ii).dispVert(ind_scratch(1,ii):(ind_scratch(1,ii)+deltaMAXTAB(1)),1);
@@ -252,5 +256,9 @@ dataAnalyzed.dispVertCorrMean_2 = dataAnalyzed.dispVertCorrMean_2/1e3;
 dataAnalyzed.dispVertCorrError_2 = dataAnalyzed.dispVertCorrError_2/1e3;
 dataAnalyzed.dispVertCorrMean_3 = dataAnalyzed.dispVertCorrMean_3/1e3;
 dataAnalyzed.dispVertCorrError_3 = dataAnalyzed.dispVertCorrError_3/1e3;
+dataAnalyzed.dispHoriCrossMean = dataAnalyzed.dispHoriCrossMean/1e3;
+dataAnalyzed.dispVertCrossMean = dataAnalyzed.dispVertCrossMean/1e3;
+dataAnalyzed.dispHoriCrossError = dataAnalyzed.dispHoriCrossError/1e3;
+dataAnalyzed.dispVertCrossError = dataAnalyzed.dispVertCrossError/1e3;
 
 end

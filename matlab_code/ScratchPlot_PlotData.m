@@ -98,19 +98,25 @@ elseif get(h.pm_set_plot, 'Value') == 4
     xDataCross = data.dispHoriCrossMean;
     yDataCross = data.dispVertCrossMean;
     yDataErrorCross = data.dispVertCrossError;
-    xLeg = strcat('Cross profile (', gui.config.lengthUnit, ')');
-    yLeg = strcat('Cross profile depth (', gui.config.lengthUnit, ')');
+    xLeg = strcat('Residual cross profile (', gui.config.lengthUnit, ')');
+    yLeg = strcat('Residual cross profile depth (', gui.config.lengthUnit, ')');
+elseif get(h.pm_set_plot, 'Value') == 5
+    xDataCross = data.dispHoriCrossMean;
+    yDataCross = data.dispVertCrossMean;
+    xLeg = strcat('Residual scratch profile (', gui.config.lengthUnit, ')');
+    yLeg = strcat('Residual cross profile (', gui.config.lengthUnit, ')');
+    zLeg = strcat('profile depth (', gui.config.lengthUnit, ')');
 end
 
 if ~get(h.cb_plot_errorbar, 'Value')
-    if ~(get(h.pm_set_plot, 'Value') == 4)
+    if (get(h.pm_set_plot, 'Value') < 4)
         if val_1
             plot(xData1, yData1, ...
                 'o', ...
                 'Color', colorPlot(1,:),...
                 'LineWidth', lineWidthval, ...
                 'markers', markerSize);
-            hold on;
+            hold on; view(0,90);
         end
         
         if val_2
@@ -119,7 +125,7 @@ if ~get(h.cb_plot_errorbar, 'Value')
                 'Color', colorPlot(2,:),...
                 'LineWidth', lineWidthval, ...
                 'markers', markerSize);
-            hold on;
+            hold on; view(0,90);
         end
         
         if val_3
@@ -128,25 +134,40 @@ if ~get(h.cb_plot_errorbar, 'Value')
                 'Color', colorPlot(3,:),...
                 'LineWidth', lineWidthval, ...
                 'markers', markerSize);
-            hold on;
+            hold on; view(0,90);
         end
-    else
+    elseif (get(h.pm_set_plot, 'Value') == 4)
         plot(xDataCross, yDataCross, ...
             '*', ...
             'Color', colorPlot(3,:),...
             'LineWidth', lineWidthval, ...
             'markers', markerSize);
+        hold on; view(0,90);
+    else
+        datax_cross = data.CP_loc*ones(1,length(yDataCross));
+        plot3(datax_cross, xDataCross, yDataCross, ...
+            '*', ...
+            'Color', colorPlot(3,:),...
+            'LineWidth', lineWidthval, ...
+            'markers', markerSize);
         hold on;
+        datay_2 = zeros(1, length(data.dispHoriMean_3));
+        plot3(data.dispHoriMean_3, datay_2,data.dispVertMean_3, ...
+            '+', ...
+            'Color', colorPlot(2,:),...
+            'LineWidth', lineWidthval, ...
+            'markers', markerSize);
+        hold on; view(-20,30);
     end
 else
-    if ~(get(h.pm_set_plot, 'Value') == 4)
+    if ~(get(h.pm_set_plot, 'Value') < 4)
         if val_1
             errorbar(xData1, yData1, yDataError1, ...
                 'o', ...
                 'Color', colorPlot(1,:),...
                 'LineWidth', lineWidthval, ...
                 'markers', markerSize);
-            hold on;
+            hold on; view(0,90);
         end
         
         if val_2
@@ -155,7 +176,7 @@ else
                 'Color', colorPlot(2,:),...
                 'LineWidth', lineWidthval, ...
                 'markers', markerSize);
-            hold on;
+            hold on; view(0,90);
         end
         
         if val_3
@@ -164,40 +185,50 @@ else
                 'Color', colorPlot(3,:),...
                 'LineWidth', lineWidthval, ...
                 'markers', markerSize);
-            hold on;
+            hold on; view(0,90);
         end
-    else
+    elseif (get(h.pm_set_plot, 'Value') == 4)
         errorbar(xDataCross, yDataCross, yDataErrorCross,...
             '*', ...
             'Color', colorPlot(3,:),...
             'LineWidth', lineWidthval, ...
             'markers', markerSize);
-        hold on;
+        hold on; view(0,90);
+    else
+        
     end
 end
 
 if (get(h.pm_set_plot, 'Value') == 4)
-    legendStr = 'Cross-Profile';
+    legendStr = 'Cross profile';
+    title(strcat('Cross profile @', num2str(gui.config.crossprofileLoc), gui.config.loadUnit));
+elseif (get(h.pm_set_plot, 'Value') == 5)
+    legendStr = {'Residual cross profile', 'Residual scratch profile'};
+    title('3D plot of the residual groove');
 else
     if val_1 && ~val_2 && ~val_3
-        legendStr = 'Pre-Profile';
+        legendStr = 'Pre-profile';
     elseif ~val_1 && val_2 && ~val_3
         legendStr = 'Scratch';
     elseif ~val_1 && ~val_2 && val_3
-        legendStr = 'Post-Profile';
+        legendStr = 'Post-profile';
     elseif val_1 && val_2 && ~val_3
-        legendStr = {'Pre-Profile', 'Scratch'};
+        legendStr = {'Pre-profile', 'Scratch'};
     elseif ~val_1 && val_2 && val_3
-        legendStr = {'Scratch', 'Post-Profile'};
+        legendStr = {'Scratch', 'Post-profile'};
     elseif val_1 && ~val_2 && val_3
-        legendStr = {'Pre-Profile', 'Post-Profile'};
+        legendStr = {'Pre-profile', 'Post-profile'};
     elseif val_1 && val_2 && val_3
-        legendStr = {'Pre-Profile', 'Scratch', 'Post-Profile'};
+        legendStr = {'Pre-profile', 'Scratch', 'Post-profile'};
     end
+    title('Scratch profiles');
 end
 
 xlabel(xLeg); %, 'Interpreter', 'Latex'
 ylabel(yLeg); %, 'Interpreter', 'Latex'
+if (get(h.pm_set_plot, 'Value') == 5)
+    zlabel(zLeg); %, 'Interpreter', 'Latex'
+end
 if val_1 || val_2 || val_3
     h_legend1 = legend(legendStr);
     %set(h_legend1, 'Interpreter', 'Latex');
