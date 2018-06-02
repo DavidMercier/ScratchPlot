@@ -146,22 +146,24 @@ if config.smoothFlag
     dataAnalyzed.dispVertCrossSum = filter(b,a,dataAnalyzed.dispVertCrossSum);
 end
 
-%% Spline smooth
-if config.splineFlag
-    dataAnalyzed.dispVertSum_1 = smoothn(dataAnalyzed.dispVertSum_1, config.splineVal);
-    dataAnalyzed.dispVertCorrSum_1 = smoothn(dataAnalyzed.dispVertCorrSum_1, config.splineVal);
-    dataAnalyzed.dispHoriSum_1 = smoothn(dataAnalyzed.dispHoriSum_1, config.splineVal);
-    dataAnalyzed.loadSum_1 = smoothn(dataAnalyzed.loadSum_1, config.splineVal);
-    dataAnalyzed.dispVertSum_2 = smoothn(dataAnalyzed.dispVertSum_2, config.splineVal);
-    dataAnalyzed.dispVertCorrSum_2 = smoothn(dataAnalyzed.dispVertCorrSum_2, config.splineVal);
-    dataAnalyzed.dispHoriSum_2 = smoothn(dataAnalyzed.dispHoriSum_2, config.splineVal);
-    dataAnalyzed.loadSum_2 = smoothn(dataAnalyzed.loadSum_2, config.splineVal);
-    dataAnalyzed.dispVertSum_3 = smoothn(dataAnalyzed.dispVertSum_3, config.splineVal);
-    dataAnalyzed.dispVertCorrSum_3 = smoothn(dataAnalyzed.dispVertCorrSum_3, config.splineVal);
-    dataAnalyzed.dispHoriSum_3 = smoothn(dataAnalyzed.dispHoriSum_3, config.splineVal);
-    dataAnalyzed.loadSum_3 = smoothn(dataAnalyzed.loadSum_3, config.splineVal);
-    dataAnalyzed.dispHoriCrossSum = smoothn(dataAnalyzed.dispHoriCrossSum, config.splineVal);
-    dataAnalyzed.dispVertCrossSum = smoothn(dataAnalyzed.dispVertCrossSum, config.splineVal);
+if exist('bwdist')
+	%% Spline smooth
+	if config.splineFlag
+		dataAnalyzed.dispVertSum_1 = smoothn(dataAnalyzed.dispVertSum_1, config.splineVal);
+		dataAnalyzed.dispVertCorrSum_1 = smoothn(dataAnalyzed.dispVertCorrSum_1, config.splineVal);
+		dataAnalyzed.dispHoriSum_1 = smoothn(dataAnalyzed.dispHoriSum_1, config.splineVal);
+		dataAnalyzed.loadSum_1 = smoothn(dataAnalyzed.loadSum_1, config.splineVal);
+		dataAnalyzed.dispVertSum_2 = smoothn(dataAnalyzed.dispVertSum_2, config.splineVal);
+		dataAnalyzed.dispVertCorrSum_2 = smoothn(dataAnalyzed.dispVertCorrSum_2, config.splineVal);
+		dataAnalyzed.dispHoriSum_2 = smoothn(dataAnalyzed.dispHoriSum_2, config.splineVal);
+		dataAnalyzed.loadSum_2 = smoothn(dataAnalyzed.loadSum_2, config.splineVal);
+		dataAnalyzed.dispVertSum_3 = smoothn(dataAnalyzed.dispVertSum_3, config.splineVal);
+		dataAnalyzed.dispVertCorrSum_3 = smoothn(dataAnalyzed.dispVertCorrSum_3, config.splineVal);
+		dataAnalyzed.dispHoriSum_3 = smoothn(dataAnalyzed.dispHoriSum_3, config.splineVal);
+		dataAnalyzed.loadSum_3 = smoothn(dataAnalyzed.loadSum_3, config.splineVal);
+		dataAnalyzed.dispHoriCrossSum = smoothn(dataAnalyzed.dispHoriCrossSum, config.splineVal);
+		dataAnalyzed.dispVertCrossSum = smoothn(dataAnalyzed.dispVertCrossSum, config.splineVal);
+	end
 end
 
 %% Mean

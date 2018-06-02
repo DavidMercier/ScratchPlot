@@ -43,12 +43,18 @@ else
     set(h.slide_averageSmooth, 'Visible', 'off');
 end
 
-config.splineFlag = get(h.cb_splineSmooth, 'value');
-if config.splineFlag 
-    config.splineVal = round(get(h.slide_splineSmooth, 'value'));
-    set(h.slide_splineSmooth, 'Visible', 'on');
+if exist('bwdist')
+set(h.cb_splineSmooth, 'Visible', 'on');
+	config.splineFlag = get(h.cb_splineSmooth, 'value');
+	if config.splineFlag 
+		config.splineVal = round(get(h.slide_splineSmooth, 'value'));
+		set(h.slide_splineSmooth, 'Visible', 'on');
+	else
+		set(h.slide_splineSmooth, 'Visible', 'off');
+	end
 else
-    set(h.slide_splineSmooth, 'Visible', 'off');
+	set(h.cb_splineSmooth, 'Visible', 'off');
+	set(h.slide_splineSmooth, 'Visible', 'off');	
 end
 
 config.offsetFlag = get(h.cb_offsetCorr, 'value');

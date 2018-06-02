@@ -16,6 +16,16 @@ gui.config.numerics = struct();
 
 config = gui.config;
 
+%% Check Licenses
+license_msg_1 = ['Sorry, no license found for the Matlab ', ...
+    'Image Toolbox!'];
+if license('checkout', 'image_toolbox') == 0
+    warning(license_msg_1);
+    config.licenceImProc_Flag = 0;
+else
+    config.licenceImProc_Flag = 1;
+end
+
 %% Paths Management
 try
     config.Scratchroot = get_scratch_root; % ensure that environment is set
