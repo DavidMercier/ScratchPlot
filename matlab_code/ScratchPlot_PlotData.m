@@ -105,7 +105,7 @@ elseif get(h.pm_set_plot, 'Value') == 5
     yDataCross = data.dispVertCrossMean;
     xLeg = strcat('Residual scratch profile (', gui.config.lengthUnit, ')');
     yLeg = strcat('Residual cross profile (', gui.config.lengthUnit, ')');
-    zLeg = strcat('profile depth (', gui.config.lengthUnit, ')');
+    zLeg = strcat('Profile depth (', gui.config.lengthUnit, ')');
 end
 
 if ~get(h.cb_plot_errorbar, 'Value')
@@ -201,7 +201,7 @@ end
 
 if (get(h.pm_set_plot, 'Value') == 4)
     legendStr = 'Cross profile';
-    title(strcat('Cross profile @', num2str(gui.config.crossprofileLoc), gui.config.loadUnit));
+    title(strcat('Cross profile @', num2str(gui.config.crossProfileLoc), gui.config.loadUnit));
 elseif (get(h.pm_set_plot, 'Value') == 5)
     legendStr = {'Residual cross profile', 'Residual scratch profile'};
     title('3D plot of the residual groove');

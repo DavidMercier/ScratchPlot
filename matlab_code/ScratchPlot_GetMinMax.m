@@ -6,7 +6,7 @@ gui = guidata(gcf);
 h = gui.handles;
 config = gui.config;
 
-clc;
+%cl
 display(strcat('Excel number file:', num2str(config.numExcelFiles)));
 
 for numFile = 1:1:config.numExcelFiles
@@ -46,7 +46,6 @@ for numFile = 1:1:config.numExcelFiles
             num2str(Zmin(numFile)),'+/-',num2str(Zmin_error(numFile)), ...
             ')',gui.config.lengthUnit));
     end
-    
 end
 
 end

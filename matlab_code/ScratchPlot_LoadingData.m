@@ -83,10 +83,10 @@ if config.flag.flag_data
     
     % Cross profile parameters
     config.crossProfileLoc = paramAll(1,6); % In micron
-    display(strcat('Cross Profile Location is:', num2str(config.crossProfileLoc), ...
+    display(strcat('Cross profile location is at:', num2str(config.crossProfileLoc), ...
         gui.config.loadUnit));
     config.crossProfileLength = paramAll(1,8); % In micron
-    display(strcat('Cross Profile Length is:', num2str(config.crossProfileLength), ...
+    display(strcat('Cross profile length is:', num2str(config.crossProfileLength), ...
         gui.config.lengthUnit));
     
     %% Preallocation of variables
@@ -153,6 +153,10 @@ end
 %     [data.expValues(ii).dispVert,data.expValues(ii).dispVert_fit] = ...
 %         bf(data.expValues(ii).dispVert);
 % end
+
+%% Update of popup menu for plot selection
+numVal = 1:1:numTest;
+set(gui.handles.pm_set_plotNumb, 'String', {'Mean Values',numVal});
 
 %% Data encapsulation
 gui.config = config;

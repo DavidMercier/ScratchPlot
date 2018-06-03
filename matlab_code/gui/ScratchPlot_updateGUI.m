@@ -21,22 +21,30 @@ set(h.unit_Max_yLim_GUI, 'String', config.lengthUnit);
 set(h.unit_xVal_GUI, 'String', config.lengthUnit);
 set(h.unit_yVal_GUI, 'String', config.lengthUnit);
 
+%% Plot number
+config.plotNumb = get(h.pm_set_plotNumb, 'Value');
+if config.plotNumb == 1
+    set(gui.handles.cb_plot_errorbar, 'Visible', 'on');
+else
+    set(gui.handles.cb_plot_errorbar, 'Visible', 'off');
+end
+
 %% Cross profile settings
 if get(h.pm_set_plot, 'Value') >= 4
-   set(h.cb_plot_preScratch, 'Visible', 'off');
-   set(h.cb_plot_scratch, 'Visible', 'off');
-   set(h.cb_plot_postScratch, 'Visible', 'off');
-   set(h.cb_offsetCorr, 'Visible', 'off');
+    set(h.cb_plot_preScratch, 'Visible', 'off');
+    set(h.cb_plot_scratch, 'Visible', 'off');
+    set(h.cb_plot_postScratch, 'Visible', 'off');
+    set(h.cb_offsetCorr, 'Visible', 'off');
 else
-   set(h.cb_plot_preScratch, 'Visible', 'on');
-   set(h.cb_plot_scratch, 'Visible', 'on');
-   set(h.cb_plot_postScratch, 'Visible', 'on');
-   set(h.cb_offsetCorr, 'Visible', 'on');
+    set(h.cb_plot_preScratch, 'Visible', 'on');
+    set(h.cb_plot_scratch, 'Visible', 'on');
+    set(h.cb_plot_postScratch, 'Visible', 'on');
+    set(h.cb_offsetCorr, 'Visible', 'on');
 end
 
 %% Smooth settings
 config.smoothFlag = get(h.cb_averageSmooth, 'value');
-if config.smoothFlag 
+if config.smoothFlag
     config.smoothVal = round(get(h.slide_averageSmooth, 'value'));
     set(h.slide_averageSmooth, 'Visible', 'on');
 else
@@ -44,17 +52,17 @@ else
 end
 
 if exist('bwdist')
-set(h.cb_splineSmooth, 'Visible', 'on');
-	config.splineFlag = get(h.cb_splineSmooth, 'value');
-	if config.splineFlag 
-		config.splineVal = round(get(h.slide_splineSmooth, 'value'));
-		set(h.slide_splineSmooth, 'Visible', 'on');
-	else
-		set(h.slide_splineSmooth, 'Visible', 'off');
-	end
+    set(h.cb_splineSmooth, 'Visible', 'on');
+    config.splineFlag = get(h.cb_splineSmooth, 'value');
+    if config.splineFlag
+        config.splineVal = round(get(h.slide_splineSmooth, 'value'));
+        set(h.slide_splineSmooth, 'Visible', 'on');
+    else
+        set(h.slide_splineSmooth, 'Visible', 'off');
+    end
 else
-	set(h.cb_splineSmooth, 'Visible', 'off');
-	set(h.slide_splineSmooth, 'Visible', 'off');	
+    set(h.cb_splineSmooth, 'Visible', 'off');
+    set(h.slide_splineSmooth, 'Visible', 'off');
 end
 
 config.offsetFlag = get(h.cb_offsetCorr, 'value');
