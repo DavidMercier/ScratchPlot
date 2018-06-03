@@ -48,3 +48,9 @@ Screenshots
    :align: center
    
    *Scratch performed on a 1300nm thick sol gel coating on a glass substrate.*
+   
+.. figure:: doc/_pictures/ScratchPlot_3Dprofiles.png
+   :scale: 50 %
+   :align: center
+   
+   *ScratchPlot GUI with a 3D plot of residual scratch profiles.*
