@@ -35,7 +35,7 @@ Reference papers
 
 Keywords
 ---------
-|matlab| toolbox; nanoscratch; scratch resistance; groove; pre-scratch; residual scratch.
+|matlab| toolbox; nanoscratch; scratch resistance; groove; pre-scratch; residual scratch; cross profile; critical load.
 
 Acknowledgements
 -----------------
@@ -43,14 +43,14 @@ Acknowledgements
 
 Screenshots
 -------------
-.. figure:: doc/_pictures/ScratchPlot_SG1300nmGlass.png
-   :scale: 50 %
+.. figure:: doc/data_image/ScratchPlot_SG1300nmGlass.png
+   :scale: 40 %
    :align: center
    
    *Scratch performed on a 1300nm thick sol gel coating on a glass substrate.*
    
 .. figure:: doc/_pictures/ScratchPlot_3Dprofiles.png
-   :scale: 50 %
+   :scale: 40 %
    :align: center
    
    *ScratchPlot GUI with a 3D plot of residual scratch profiles.*
