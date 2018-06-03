@@ -43,7 +43,7 @@ Acknowledgements
 
 Screenshots
 -------------
-.. figure:: doc/data_image/ScratchPlot_SG1300nmGlass.png
+.. figure:: data_image/ScratchPlot_SG1300nmGlass.png
    :scale: 40 %
    :align: center
    
