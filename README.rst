@@ -1,6 +1,6 @@
 ﻿ScratchPlot
 =========
-This Matlab toolbox has been developed to plot and to analyze scratch resistance and mechanical deformation of material from (nano)scratch results .
+This Matlab toolbox has been developed to plot and to analyze scratch resistance and mechanical deformation of material from (nano)scratch results.
 
 To get started with the ScratchPlot toolbox, clone the repository, then run Matlab, and cd into the folder containing this README file.
 
