@@ -12,9 +12,12 @@ Features
 The ScratchPlot toolbox has been developed to plot and to analyze (nano)scratch dataset.
 
 With this Matlab toolbox, it is possible:
-    * to plot 2D scratch profiles as a function of horizontal displacement;
+
+    * to load .xls file with scratch results
+	* to plot 2D scratch profiles as a function of horizontal displacement;
 	* to plot 2D scratch profiles as a function of applied normal load;
     * to plot pre- and post-profiles (or initial and residual topographies);
+	* to plot cross profile
     * to get statistical values (min, mean and max).
 
 Matlab version
@@ -35,7 +38,7 @@ Reference papers
 
 Keywords
 ---------
-|matlab| toolbox; nanoscratch; scratch resistance; groove; pre-scratch; residual scratch; cross profile; critical load.
+Matlab toolbox; GUI;nanoscratch; scratch resistance; groove; pre-scratch; residual scratch; cross profile; critical load.
 
 Acknowledgements
 -----------------
