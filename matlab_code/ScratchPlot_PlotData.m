@@ -160,7 +160,7 @@ if ~get(h.cb_plot_errorbar, 'Value')
         hold on; view(-20,30);
     end
 else
-    if ~(get(h.pm_set_plot, 'Value') < 4)
+    if get(h.pm_set_plot, 'Value') < 4
         if val_1
             errorbar(xData1, yData1, yDataError1, ...
                 'o', ...
