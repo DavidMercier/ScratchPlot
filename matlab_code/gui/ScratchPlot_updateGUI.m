@@ -18,8 +18,39 @@ set(h.unit_Min_xLim_GUI, 'String', config.lengthUnit);
 set(h.unit_Max_xLim_GUI, 'String', config.lengthUnit);
 set(h.unit_Min_yLim_GUI, 'String', config.lengthUnit);
 set(h.unit_Max_yLim_GUI, 'String', config.lengthUnit);
-set(h.unit_xVal_GUI, 'String', config.lengthUnit);
-set(h.unit_yVal_GUI, 'String', config.lengthUnit);
+
+set(gui.handles.title_zVal_GUI, 'Visible', 'off');
+set(gui.handles.value_zVal_GUI, 'Visible', 'off');
+set(gui.handles.unit_zVal_GUI, 'Visible', 'off');
+if get(h.pm_set_plot, 'Value') <= 4
+    % Use of datacursor?
+    datacursormode off;
+    set(gui.handles.title_xVal_GUI, 'Visible', 'on');
+    set(gui.handles.value_xVal_GUI, 'Visible', 'on');
+    set(gui.handles.unit_xVal_GUI, 'Visible', 'on');
+    set(gui.handles.title_yVal_GUI, 'Visible', 'on');
+    set(gui.handles.value_yVal_GUI, 'Visible', 'on');
+    set(gui.handles.unit_yVal_GUI, 'Visible', 'on');
+else
+    set(gui.handles.title_xVal_GUI, 'Visible', 'off');
+    set(gui.handles.value_xVal_GUI, 'Visible', 'off');
+    set(gui.handles.unit_xVal_GUI, 'Visible', 'off');
+    set(gui.handles.title_yVal_GUI, 'Visible', 'off');
+    set(gui.handles.value_yVal_GUI, 'Visible', 'off');
+    set(gui.handles.unit_yVal_GUI, 'Visible', 'off');
+end
+
+if get(h.pm_set_plot, 'Value') == 1 || get(h.pm_set_plot, 'Value') >= 4
+    set(h.unit_xVal_GUI, 'String', config.lengthUnit);
+    set(h.unit_yVal_GUI, 'String', config.lengthUnit);
+    set(h.unit_zVal_GUI, 'String', config.lengthUnit);
+elseif get(h.pm_set_plot, 'Value') == 2
+    set(h.unit_xVal_GUI, 'String', config.loadUnit);
+    set(h.unit_yVal_GUI, 'String', config.lengthUnit);
+elseif get(h.pm_set_plot, 'Value') == 3
+    set(h.unit_xVal_GUI, 'String', config.lengthUnit);
+    set(h.unit_yVal_GUI, 'String', config.loadUnit);
+end
 
 %% Plot number
 config.plotNumb = get(h.pm_set_plotNumb, 'Value');
